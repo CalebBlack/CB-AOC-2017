@@ -8,8 +8,11 @@ function interpret(str){
     let char = str[i];
     if (char == '{') {
       target = new Group(target);
+      console.log(output);
     } else if (char == '}') {
       target = target.parent;
+    } else if (char == '!') {
+      i++;
     }
     i++;
   }
