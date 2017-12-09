@@ -2,8 +2,8 @@ const Group = require('./group');
 const Garbage = require('./garbage');
 
 function interpret(str){
-  const output = new Group();
-  let target = output;
+  let output;
+  let target;
   let i = 0;
   inGarbage = false;
   while (i < str.length) {
@@ -18,7 +18,12 @@ function interpret(str){
         target.add(char);
       }
     } else if (char == '{') {
-      target = new Group(target);
+      if (!output) {
+        output = new Group();
+        target = output;
+      } else {
+        target = new Group(target);
+      }
     } else if (char == '}') {
       target = target.parent;
     } else if (char == '<') {
