@@ -9,7 +9,9 @@ function interpret(str){
   while (i < str.length) {
     let char = str[i];
     if (inGarbage) {
-      if (char == '>') {
+      if (char == '!') {
+        i++;
+      } else if (char == '>') {
         inGarbage = false;
         target = target.parent;
       } else {
@@ -17,11 +19,8 @@ function interpret(str){
       }
     } else if (char == '{') {
       target = new Group(target);
-      console.log(output);
     } else if (char == '}') {
       target = target.parent;
-    } else if (char == '!') {
-      i++;
     } else if (char == '<') {
       inGarbage = true;
       target = new Garbage(target);
