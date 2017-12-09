@@ -11,14 +11,13 @@ fs.readFile('../puzzle.txt','utf-8',(err,data)=>{
 });
 function solve(instructions){
   var data = new DataSet();
+  var largest = null;
   instructions.forEach(instruction=>{
     if (eval(data.get(instruction.conditional[0])+' '+instruction.conditional[1]+' '+instruction.conditional[2])) {
-      data.set(instruction.var,data.get(instruction.var) + instruction.dir * instruction.amount);
+      let value = data.get(instruction.var) + instruction.dir * instruction.amount;
+      if (!largest || largest < value) largest = value;
+      data.set(instruction.var,value);
     }
-  });
-  var largest = null;
-  Object.entries(data.data).forEach(pair=>{
-    if (!largest || largest[1] < pair[1]) largest = pair;
   });
   return largest;
 }
