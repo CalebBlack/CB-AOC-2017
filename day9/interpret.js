@@ -4,9 +4,8 @@ const Garbage = require('./garbage');
 function interpret(str){
   let output;
   let target;
-  let i = 0;
-  inGarbage = false;
-  while (i < str.length) {
+  let inGarbage = false;
+  for (let i = 0; i < str.length; i++) {
     let char = str[i];
     if (inGarbage) {
       if (char == '!') {
@@ -30,7 +29,6 @@ function interpret(str){
       inGarbage = true;
       target = new Garbage(target);
     }
-    i++;
   }
   return output;
 }
